@@ -2,11 +2,14 @@ package main.java.com.juego.vistas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;  // Importa la interfaz KeyListener
 import main.java.com.juego.modelos.Tablero;
+
 
 public class VistaTablero extends JFrame {
 
     private final Tablero tablero; // Instancia de la clase Tablero que maneja el modelo de datos
+    private JButton btnEmpezarTurno; // Botón para iniciar el turno
 
     public VistaTablero() {
         setTitle("Juego Tiro al Blanco");
@@ -25,7 +28,7 @@ public class VistaTablero extends JFrame {
 
         // Utiliza el modelo de la tabla del objeto tablero
         JTable tablaJugadores = new JTable(tablero.getModeloTabla());
-        tablaJugadores.setPreferredScrollableViewportSize(new Dimension(180, 120));
+        tablaJugadores.setPreferredScrollableViewportSize(new Dimension(180, 150));
         tablaJugadores.setFillsViewportHeight(true);
         tablaJugadores.setRowHeight(30);
 
@@ -34,25 +37,9 @@ public class VistaTablero extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panelJugadores.add(scrollPane, BorderLayout.CENTER);
 
-        // Panel para la información de las teclas dentro del panel de jugadores
-        JPanel panelInfoTeclas = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0)); // Añade espacio entre los elementos
-        panelInfoTeclas.setBorder(BorderFactory.createTitledBorder(""));
-
-        // Define una fuente más grande para las teclas
-        Font teclasFont = new Font("SansSerif", Font.BOLD, 20);
-
-        // Añade una etiqueta "teclas" encima de los botones simulados
-        JLabel labelTituloTeclas = new JLabel("teclas");
-        labelTituloTeclas.setFont(new Font("SansSerif", Font.BOLD, 14));
-        panelInfoTeclas.add(labelTituloTeclas);
-
-        // Crea paneles individuales para cada tecla con bordes para simular botones y con la fuente grande
-        panelInfoTeclas.add(createKeyPanel("T", teclasFont));
-        panelInfoTeclas.add(createKeyPanel("+", teclasFont));
-        panelInfoTeclas.add(createKeyPanel("H", teclasFont));
-
-        // Agrega el panel de información de teclas al final del panel de jugadores
-        panelJugadores.add(panelInfoTeclas, BorderLayout.SOUTH);
+        // Botón para empezar el turno
+        btnEmpezarTurno = new JButton("Empezar Turno");
+        panelJugadores.add(btnEmpezarTurno, BorderLayout.SOUTH);
 
         // Panel de tiro al blanco con bordes y títulos
         JPanel panelTiroAlBlanco = new JPanel() {
@@ -127,6 +114,16 @@ public class VistaTablero extends JFrame {
     // Método para actualizar la información de los jugadores en la tabla
     public void actualizarJugadores(String[] nombres, int[] puntos) {
         tablero.actualizarJugadores(nombres, puntos); // Delega la actualización al modelo de Tablero
+    }
+
+    public JButton getBtnEmpezarTurno() {
+        return btnEmpezarTurno;
+    }
+
+    public void addKeyListenerToFrame(KeyListener listener) {
+        addKeyListener(listener);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
     }
 
     public void mostrar() {
