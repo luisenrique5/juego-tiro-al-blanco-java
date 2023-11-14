@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
 public class ControladorTablero {
     private VistaTablero vistaTablero;
     private String[] nombresJugadores;
@@ -41,8 +40,12 @@ public class ControladorTablero {
     }
 
     public void empezarTurno() {
-        // Restablecer el conteo de teclas y puntuaciones para el nuevo turno
         conteoTeclas = 0;
+
+        if (intentoActual == 0) {
+            vistaTablero.reiniciarPosicionEstrellas();
+        }
+
         if (turnoActual == 0 && intentoActual == 0) {
             for (int i = 0; i < puntuaciones.length; i++) {
                 puntuaciones[i] = 0;
@@ -65,13 +68,13 @@ public class ControladorTablero {
         temporizador.start();
     }
 
-
     private void finalizarTurno() {
         temporizador.stop();
         JOptionPane.showMessageDialog(vistaTablero, "Tu puntuación fue: " + conteoTeclas);
         puntuaciones[turnoActual] += conteoTeclas;
 
         vistaTablero.actualizarJugadores(nombresJugadores, puntuaciones);
+        vistaTablero.actualizarPosicionEstrella(puntuaciones[turnoActual], intentoActual);
 
         intentoActual++;
         if (intentoActual >= 2) {
@@ -82,7 +85,7 @@ public class ControladorTablero {
         if (turnoActual == 0 && intentoActual == 0) {
             determinarGanador();
         } else {
-            empezarTurno(); // Iniciar el siguiente turno automáticamente
+            empezarTurno();
         }
     }
 
@@ -96,7 +99,6 @@ public class ControladorTablero {
             }
         }
         JOptionPane.showMessageDialog(vistaTablero, "El ganador es " + nombresJugadores[jugadorGanador] + " con " + maxPuntuacion + " puntos.");
-        // Opcional: Aquí puedes agregar una opción para reiniciar el juego o cerrarlo.
     }
 
     public void iniciarJuego() {

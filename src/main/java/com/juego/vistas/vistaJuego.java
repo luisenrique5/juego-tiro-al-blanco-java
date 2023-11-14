@@ -13,23 +13,23 @@ public class vistaJuego extends JFrame {
     private JButton anadirUsuarioButton;
     private JButton empezarJuegoButton;
     private static final int MAX_JUGADORES = 5;
-    private ControladorJuego controladorJuego; // Referencia al controlador
+    private ControladorJuego controladorJuego;
 
     public vistaJuego(ControladorJuego controlador) {
         super("Juego Tiro al Blanco");
-        this.controladorJuego = controlador; // Asigna el controlador recibido al campo de la clase
+        this.controladorJuego = controlador;
         jugadorTextFields = new ArrayList<>();
         iniciarComponentes();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
-        setSize(600, 300); // Establece el tamaño inicial de la ventana
+        setLocationRelativeTo(null);
+        setSize(600, 300);
     }
 
     private void iniciarComponentes() {
         Font fuenteTexto = new Font("Arial", Font.BOLD, 16);
-        Color colorFondo = new Color(0xFFFFFF); // Blanco
-        Color colorBotonAnadir = new Color(0x3498DB); // Azul
-        Color colorBotonEmpezar = new Color(0x2ECC71); // Verde
+        Color colorFondo = new Color(0xFFFFFF);
+        Color colorBotonAnadir = new Color(0x3498DB);
+        Color colorBotonEmpezar = new Color(0x2ECC71);
         Color colorTextoBoton = Color.WHITE;
         Insets margenBotones = new Insets(10, 20, 10, 20);
 
@@ -122,7 +122,7 @@ public class vistaJuego extends JFrame {
             }
             nombresJugadores.add(nombre);
         }
-        // Si llegamos aquí, todos los campos están llenos. Podemos enviar la lista de nombres al controlador.
+
         controladorJuego.iniciarJuegoConJugadores(nombresJugadores);
     }
 

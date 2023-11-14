@@ -1,0 +1,28 @@
+Manual de usuario
+¡Bienvenido al emocionante juego del "Tiro al Blanco"! Este juego te ofrece la oportunidad de poner a prueba que tan rápido eres dándole a dos teclas en específico para. Antes de comenzar, revisa este manual para obtener una comprensión completa de las reglas y las características del juego.
+Contenido:
+Interfaz del Juego:
+•	Puntuación: Muestra la puntuación actual del jugador.
+•	Tiempo Restante: Tras cada ronda iniciará un contador de 5 segundos en el cual dará tiempo, para dar lo más rápido posible a las teclas para calcular la precisión del jugador 
+
+1.	Objetivo 
+El objetivo principal es acumular la mayor cantidad de puntos posibles disparando a los blancos en un máximo de dos oportunidades.
+      2.  Instrucciones 
+Los lanzamientos se realizarán oprimiendo las teclas T y H MÚLTIPLES VECES. La precisión de cada lanzamiento dependerá de la cantidad de veces que se opriman dichas teclas en 5 segundos; entre más veces sean oprimidas, el lanzamiento será de forma aleatoria, pero con mayor precisión
+      3.  Inicio del Juego:
+Al iniciar el juego, verás una pantalla de bienvenida con opciones para comenzar, ver las instrucciones y saldrá un menú en el cual se deberán poner los nombres de los jugadores 
+      4.  Jugadores 
+El juego consta de mínimo 2 jugadores para poder iniciar el juego y un máximo de 5 jugadores cada jugador podrá poner su nombre en un menú y al terminar el juego se mostrará a los cinco jugadores con su respectivo puntaje 
+      5.  Niveles:
+El juego consta de 4 niveles de precisión.
+	Nivel 1(Color Negro) = 0 a 44
+	Nivel 2(Color Azul) == 45 a 54
+	Nivel 3(Color Rojo) == 55 a 69
+	Nivel 4(Color Amarillo) ==70 a 80
+     6.  puntuación:
+Cada blanco tiene un valor específico. Dale lo más rápido posible a las teclas para poder obtener la puntuación más alta.
+      7.  Fin del Juego:
+El juego acabara cuando todos los jugadores completen los dos lanzamientos que el juego les da.
+      8.  Puntuación Final: 
+Al final del juego, se mostrará tu puntuación final en una tabla junto a la de los otros jugadores
+¡Ahora estás listo para jugar en el "Tiro al Blanco"! Demuestra tu destreza y disfruta de la emoción de acertar en el blanco. ¡Buena suerte y que tus disparos sean certeros!

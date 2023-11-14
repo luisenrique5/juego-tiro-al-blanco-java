@@ -2,14 +2,18 @@ package main.java.com.juego.vistas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;  // Importa la interfaz KeyListener
-import main.java.com.juego.modelos.Tablero;
+import java.awt.event.KeyListener;
 
+import main.java.com.juego.modelos.Tablero;
 
 public class VistaTablero extends JFrame {
 
-    private final Tablero tablero; // Instancia de la clase Tablero que maneja el modelo de datos
-    private JButton btnEmpezarTurno; // Botón para iniciar el turno
+    private final Tablero tablero;
+    private JButton btnEmpezarTurno;
+    private int estrella1X = 10;
+    private int estrella1Y = 10;
+    private int estrella2X = 30;
+    private int estrella2Y = 10;
 
     public VistaTablero() {
         setTitle("Juego Tiro al Blanco");
@@ -17,91 +21,93 @@ public class VistaTablero extends JFrame {
         getContentPane().setBackground(Color.WHITE);
         setLayout(new BorderLayout(10, 10));
 
-        // Inicializa la clase Tablero que contiene el modelo de la tabla de jugadores
+
         tablero = new Tablero();
 
-        // Panel de jugadores con bordes y títulos
+
         JPanel panelJugadores = new JPanel();
         panelJugadores.setLayout(new BorderLayout());
         panelJugadores.setPreferredSize(new Dimension(200, 200));
         panelJugadores.setBorder(BorderFactory.createTitledBorder("Jugadores"));
 
-        // Utiliza el modelo de la tabla del objeto tablero
+
         JTable tablaJugadores = new JTable(tablero.getModeloTabla());
         tablaJugadores.setPreferredScrollableViewportSize(new Dimension(180, 150));
         tablaJugadores.setFillsViewportHeight(true);
         tablaJugadores.setRowHeight(30);
 
-        // Elimina la barra de desplazamiento vertical si no es necesaria
+
         JScrollPane scrollPane = new JScrollPane(tablaJugadores);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panelJugadores.add(scrollPane, BorderLayout.CENTER);
 
-        // Botón para empezar el turno
+
         btnEmpezarTurno = new JButton("Empezar Turno");
         panelJugadores.add(btnEmpezarTurno, BorderLayout.SOUTH);
 
-        // Panel de tiro al blanco con bordes y títulos
+
         JPanel panelTiroAlBlanco = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                // Define the margin from the left and the bottom
+
                 int margin = 10;
 
-                // Sizes for each square
+
                 int blackSize = 350;
                 int blueSize = 260;
                 int redSize = 180;
                 int yellowSize = 80;
 
-                // Bottom-left corner coordinates for the black square
+
                 int blackX = margin;
                 int blackY = getHeight() - blackSize - margin;
 
-                // Draw the black square
+
                 g.setColor(Color.BLACK);
                 g.fillRect(blackX, blackY, blackSize, blackSize);
 
-                // Bottom-left corner coordinates for the blue square
+
                 int blueX = blackX + margin;
                 int blueY = blackY - margin + (blackSize - blueSize);
 
-                // Draw the blue square
+
                 g.setColor(Color.BLUE);
                 g.fillRect(blueX, blueY, blueSize, blueSize);
 
-                // Bottom-left corner coordinates for the red square
+
                 int redX = blueX + margin;
                 int redY = blueY - margin + (blueSize - redSize);
 
-                // Draw the red square
+
                 g.setColor(Color.RED);
                 g.fillRect(redX, redY, redSize, redSize);
 
-                // Bottom-left corner coordinates for the yellow square
+
                 int yellowX = redX + margin;
                 int yellowY = redY - margin + (redSize - yellowSize);
 
-                // Draw the yellow square
+
                 g.setColor(Color.YELLOW);
                 g.fillRect(yellowX, yellowY, yellowSize, yellowSize);
+
+                g.setColor(Color.GREEN);
+                dibujarEstrella(g, estrella1X, estrella1Y);
+                dibujarEstrella(g, estrella2X + 20, estrella2Y);
             }
         };
         panelTiroAlBlanco.setBorder(BorderFactory.createTitledBorder("Tiro al Blanco"));
         panelTiroAlBlanco.setPreferredSize(new Dimension(300, 300));
 
-        // Agregar los paneles al frame
         add(panelJugadores, BorderLayout.WEST);
         add(panelTiroAlBlanco, BorderLayout.CENTER);
 
-        // Preparar el frame para la visualización
         setSize(700, 450);
         setLocationRelativeTo(null);
     }
 
-    // Método auxiliar para crear un panel de tecla
+
     private JPanel createKeyPanel(String keyText, Font font) {
         JLabel label = new JLabel(keyText);
         label.setFont(font);
@@ -111,9 +117,8 @@ public class VistaTablero extends JFrame {
         return keyPanel;
     }
 
-    // Método para actualizar la información de los jugadores en la tabla
     public void actualizarJugadores(String[] nombres, int[] puntos) {
-        tablero.actualizarJugadores(nombres, puntos); // Delega la actualización al modelo de Tablero
+        tablero.actualizarJugadores(nombres, puntos);
     }
 
     public JButton getBtnEmpezarTurno() {
@@ -124,6 +129,49 @@ public class VistaTablero extends JFrame {
         addKeyListener(listener);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+    }
+
+    private void dibujarEstrella(Graphics g, int x, int y) {
+        int[] xPoints = {x, x + 5, x + 10, x + 6, x + 8, x, x - 8, x - 6, x - 10, x - 5};
+        int[] yPoints = {y, y + 5, y + 5, y + 8, y + 15, y + 10, y + 15, y + 8, y + 5, y + 5};
+        g.fillPolygon(xPoints, yPoints, 10);
+    }
+
+    public void actualizarPosicionEstrella(int puntuacion, int intento) {
+        int targetX = 0;
+        int targetY = 0;
+        if (puntuacion >= 0 && puntuacion <= 44) {
+            targetX = 300;
+            targetY = 300;
+        } else if (puntuacion >= 45 && puntuacion <= 54) {
+            targetX = 100;
+            targetY = 150;
+        } else if (puntuacion >= 55 && puntuacion <= 69) {
+            targetX = 100;
+            targetY = 250;
+        } else if (puntuacion >= 70 && puntuacion <= 80) {
+            targetX = 80;
+            targetY = 350;
+        }
+
+
+        if (intento == 0) {
+            estrella1X = targetX;
+            estrella1Y = targetY;
+        } else if (intento == 1) {
+            estrella2X = targetX;
+            estrella2Y = targetY;
+        }
+
+        repaint();
+    }
+
+    public void reiniciarPosicionEstrellas() {
+        estrella1X = 10;
+        estrella1Y = 10;
+        estrella2X = 30;
+        estrella2Y = 10;
+        repaint();
     }
 
     public void mostrar() {
