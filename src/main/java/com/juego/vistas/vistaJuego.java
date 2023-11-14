@@ -5,19 +5,24 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.com.juego.controladores.ControladorJuego;
+
 public class vistaJuego extends JFrame {
     private List<JTextField> jugadorTextFields;
     private JPanel panelPrincipal;
     private JButton anadirUsuarioButton;
     private JButton empezarJuegoButton;
     private static final int MAX_JUGADORES = 5;
+    private ControladorJuego controladorJuego; // Referencia al controlador
 
-    public vistaJuego() {
+    public vistaJuego(ControladorJuego controlador) {
         super("Juego Tiro al Blanco");
+        this.controladorJuego = controlador; // Asigna el controlador recibido al campo de la clase
         jugadorTextFields = new ArrayList<>();
         iniciarComponentes();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        setSize(600, 300); // Establece el tamaño inicial de la ventana
     }
 
     private void iniciarComponentes() {
@@ -54,6 +59,8 @@ public class vistaJuego extends JFrame {
         getContentPane().add(panelDeBotones, BorderLayout.SOUTH);
 
         setSize(600, 300);
+
+        empezarJuegoButton.addActionListener(e -> validarCamposYEmpezarJuego());
     }
 
     private JPanel crearPanelDeBotones() {
@@ -104,6 +111,21 @@ public class vistaJuego extends JFrame {
             anadirUsuarioButton.setEnabled(false);
         }
     }
+
+    private void validarCamposYEmpezarJuego() {
+        List<String> nombresJugadores = new ArrayList<>();
+        for (JTextField jugadorTextField : jugadorTextFields) {
+            String nombre = jugadorTextField.getText().trim();
+            if (nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            nombresJugadores.add(nombre);
+        }
+        // Si llegamos aquí, todos los campos están llenos. Podemos enviar la lista de nombres al controlador.
+        controladorJuego.iniciarJuegoConJugadores(nombresJugadores);
+    }
+
 
     public void mostrar() {
         setVisible(true);
